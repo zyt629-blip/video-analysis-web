@@ -542,6 +542,9 @@
                 <div class="info-box">
                     💡 <strong>提示：</strong>选择你想使用的 AI 平台，输入对应的 API Key。数据仅在浏览器本地存储，不会上传到任何服务器。
                 </div>
+                <div class="warning-box">
+                    🔒 <strong>API Key 安全提示：</strong>API Key 仅保存在当前会话（sessionStorage），关闭标签页后自动清除。
+                </div>
 
                 <div class="form-group">
                     <label>AI 平台 *</label>
@@ -629,8 +632,8 @@
 
                 <!-- 选项卡 -->
                 <div class="tabs">
-                    <button class="tab active" onclick="switchTab('analysis')">🔥 爆款分析</button>
-                    <button class="tab" onclick="switchTab('script')">📝 创作脚本</button>
+                    <button class="tab active" onclick="switchTab('analysis', this)">🔥 爆款分析</button>
+                    <button class="tab" onclick="switchTab('script', this)">📝 创作脚本</button>
                 </div>
 
                 <!-- 爆款分析内容 -->
@@ -692,6 +695,17 @@
         let analysisData = null;
         let currentTab = 'analysis';
 
+        // XSS 防护：HTML 转义
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         // AI 平台配置
         const AI_PROVIDERS = {
             claude: {
@@ -747,10 +761,10 @@
 
         // 从 localStorage 加载配置
         window.onload = function() {
-            const savedProvider = localStorage.getItem('aiProvider') || 'claude';
-            const savedApiKey = localStorage.getItem('apiKey');
-            const savedBaseUrl = localStorage.getItem('baseUrl');
-            const savedModel = localStorage.getItem('model');
+            const savedProvider = sessionStorage.getItem('aiProvider') || 'claude';
+            const savedApiKey = sessionStorage.getItem('apiKey');
+            const savedBaseUrl = sessionStorage.getItem('baseUrl');
+            const savedModel = sessionStorage.getItem('model');
 
             document.getElementById('aiProvider').value = savedProvider;
             if (savedApiKey) document.getElementById('apiKey').value = savedApiKey;
@@ -784,13 +798,13 @@
         }
 
         // 切换选项卡
-        function switchTab(tab) {
+        function switchTab(tab, el) {
             currentTab = tab;
 
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-            event.target.classList.add('active');
+            (el || event.target).classList.add('active');
             document.getElementById('tab-' + tab).classList.add('active');
         }
 
@@ -901,10 +915,10 @@
                 return;
             }
 
-            localStorage.setItem('aiProvider', provider);
-            localStorage.setItem('apiKey', apiKey);
-            localStorage.setItem('baseUrl', baseUrl);
-            localStorage.setItem('model', model);
+            sessionStorage.setItem('aiProvider', provider);
+            sessionStorage.setItem('apiKey', apiKey);
+            sessionStorage.setItem('baseUrl', baseUrl);
+            sessionStorage.setItem('model', model);
 
             hideError();
             document.getElementById('result').classList.remove('active');
@@ -987,7 +1001,11 @@
 
                 let jsonMatch = content.match(/\{[\s\S]*\}/);
                 if (jsonMatch) {
-                    analysisData = JSON.parse(jsonMatch[0]);
+                    try {
+                        analysisData = JSON.parse(jsonMatch[0]);
+                    } catch (e) {
+                        analysisData = parseTextResponse(content, platform, videoUrl);
+                    }
                 } else {
                     analysisData = parseTextResponse(content, platform, videoUrl);
                 }
@@ -1048,19 +1066,19 @@
         function displayResults() {
             // 填充头部
             const headerHTML = `
-                <h3>${analysisData.title} ${getConfidenceBadge(analysisData.titleConfidence)}</h3>
+                <h3>${escapeHtml(analysisData.title)} ${getConfidenceBadge(analysisData.titleConfidence)}</h3>
                 <div class="result-meta">
                     <div class="result-meta-item">
                         <span>📱</span>
-                        <span>${analysisData.platform}</span>
+                        <span>${escapeHtml(analysisData.platform)}</span>
                     </div>
                     <div class="result-meta-item">
                         <span>👤</span>
-                        <span>${analysisData.author} ${getConfidenceBadge(analysisData.authorConfidence)}</span>
+                        <span>${escapeHtml(analysisData.author)} ${getConfidenceBadge(analysisData.authorConfidence)}</span>
                     </div>
                     <div class="result-meta-item">
                         <span>📅</span>
-                        <span>${analysisData.publishDate} ${getConfidenceBadge(analysisData.publishDateConfidence)}</span>
+                        <span>${escapeHtml(analysisData.publishDate)} ${getConfidenceBadge(analysisData.publishDateConfidence)}</span>
                     </div>
                 </div>
             `;
@@ -1069,9 +1087,9 @@
             // 填充分析原因
             const reasonsHTML = analysisData.reasons.map((reason, index) => `
                 <div class="reason-item">
-                    <h4>${index + 1}. ${reason.title}</h4>
-                    <p>${reason.description}</p>
-                    ${reason.confidence ? `<p class="reason-confidence">📌 数据来源：${reason.confidence}</p>` : ''}
+                    <h4>${index + 1}. ${escapeHtml(reason.title)}</h4>
+                    <p>${escapeHtml(reason.description)}</p>
+                    ${reason.confidence ? `<p class="reason-confidence">📌 数据来源：${escapeHtml(reason.confidence)}</p>` : ''}
                 </div>
             `).join('');
             document.getElementById('analysisReasons').innerHTML = reasonsHTML;
@@ -1079,11 +1097,11 @@
             // 填充创作脚本 - 标题公式
             const titleFormulaHTML = `
                 <div class="formula-box">
-                    <p>${analysisData.script.titleFormula}</p>
+                    <p>${escapeHtml(analysisData.script.titleFormula)}</p>
                     ${analysisData.script.titleExamples && analysisData.script.titleExamples.length > 0 ? `
                         <h5 style="margin-top: 20px; margin-bottom: 10px; color: #764ba2;">示例标题：</h5>
                         <ul class="example-list">
-                            ${analysisData.script.titleExamples.map(ex => `<li>${ex}</li>`).join('')}
+                            ${analysisData.script.titleExamples.map(ex => `<li>${escapeHtml(ex)}</li>`).join('')}
                         </ul>
                     ` : ''}
                 </div>
@@ -1093,7 +1111,7 @@
             // 填充创作脚本 - 内容结构
             const contentStructureHTML = `
                 <div class="formula-box">
-                    <p style="white-space: pre-wrap;">${analysisData.script.contentStructure}</p>
+                    <p style="white-space: pre-wrap;">${escapeHtml(analysisData.script.contentStructure)}</p>
                 </div>
             `;
             document.getElementById('scriptContentStructure').innerHTML = contentStructureHTML;
@@ -1107,9 +1125,9 @@
                         <div class="topic-card">
                             <div>
                                 <span class="topic-number">${index + 1}</span>
-                                <span class="topic-title">${topicTitle}</span>
+                                <span class="topic-title">${escapeHtml(topicTitle)}</span>
                             </div>
-                            ${topicDesc ? `<p class="topic-desc" style="margin-top: 10px; margin-left: 45px;">${topicDesc}</p>` : ''}
+                            ${topicDesc ? `<p class="topic-desc" style="margin-top: 10px; margin-left: 45px;">${escapeHtml(topicDesc)}</p>` : ''}
                         </div>
                     `;
                 }).join('');
