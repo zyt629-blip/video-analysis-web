@@ -3,14 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>视频分析工具 - 支持多平台AI</title>
+    <title>爆款文章分析工具 - AI驱动</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -18,1278 +13,607 @@
             padding: 20px;
             line-height: 1.6;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; }
         header {
             background: white;
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             text-align: center;
         }
-
-        header h1 {
-            font-size: 2.5em;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: #666;
-            font-size: 1.1em;
-        }
-
+        header h1 { font-size: 2.5em; color: #667eea; margin-bottom: 10px; }
+        header p { color: #666; font-size: 1.1em; }
         .card {
             background: white;
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
-
-        .card h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1em;
+        .card h2 { color: #667eea; margin-bottom: 20px; font-size: 1.5em; display: flex; align-items: center; gap: 10px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 12px 16px;
+            border: 2px solid #e0e0e0; border-radius: 10px;
+            font-size: 1em; font-family: inherit; background: white;
             transition: all 0.3s ease;
-            font-family: inherit;
-            background: white;
         }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        .form-group input:focus, .form-group select:focus {
+            outline: none; border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
         }
-
-        .form-group small {
-            display: block;
-            margin-top: 5px;
-            color: #888;
-            font-size: 0.9em;
-        }
-
-        .form-group small a {
-            color: #667eea;
-            text-decoration: none;
-        }
-
-        .form-group small a:hover {
-            text-decoration: underline;
-        }
-
+        .form-group small { display: block; margin-top: 5px; color: #888; font-size: 0.9em; }
+        .form-group small a { color: #667eea; text-decoration: none; }
         .btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 25px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white; border: none; padding: 15px 40px;
+            border-radius: 25px; font-size: 1.1em; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
         }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .platform-badges, .ai-provider-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102,126,234,0.6); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-secondary { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .platform-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
         .platform-badge {
-            display: inline-block;
-            padding: 8px 16px;
+            display: inline-block; padding: 8px 16px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
+            color: white; border-radius: 20px; font-size: 0.85em; font-weight: 600;
         }
-
         .ai-badge {
-            display: inline-block;
-            padding: 8px 16px;
+            display: inline-block; padding: 8px 16px;
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
+            color: white; border-radius: 20px; font-size: 0.85em; font-weight: 600;
         }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .loading.active {
-            display: block;
-        }
-
+        .ai-provider-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .loading { display: none; text-align: center; padding: 40px; }
+        .loading.active { display: block; }
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            border: 4px solid #f3f3f3; border-top: 4px solid #667eea;
+            border-radius: 50%; width: 50px; height: 50px;
+            animation: spin 1s linear infinite; margin: 0 auto 20px;
         }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .result {
-            display: none;
-        }
-
-        .result.active {
-            display: block;
-        }
-
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .result { display: none; }
+        .result.active { display: block; }
         .result-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 20px;
+            color: white; padding: 30px; border-radius: 15px; margin-bottom: 20px;
         }
-
-        .result-header h3 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-
-        .result-meta {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .result-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* 可信度标签 */
-        .confidence-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-
-        .confidence-confirmed {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .confidence-inferred {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .confidence-unavailable {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        /* 警告提示 */
+        .result-header h3 { font-size: 1.8em; margin-bottom: 10px; }
+        .result-meta { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px; }
+        .result-meta-item { display: flex; align-items: center; gap: 8px; }
         .warning-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            color: #856404;
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 15px; border-radius: 10px; margin-bottom: 20px; color: #856404;
         }
-
-        .warning-box strong {
-            display: block;
-            margin-bottom: 5px;
+        .warning-box strong { display: block; margin-bottom: 5px; }
+        .info-box {
+            background: #e3f2fd; border-left: 4px solid #2196f3;
+            padding: 15px; border-radius: 10px; margin-bottom: 20px; color: #0d47a1;
         }
-
-        .analysis-section {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        .analysis-section h3 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
+        .analysis-section { background: #f8f9fa; padding: 25px; border-radius: 15px; margin-bottom: 20px; }
+        .analysis-section h3 { color: #667eea; margin-bottom: 20px; font-size: 1.5em; }
         .reason-item {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border-left: 4px solid #667eea;
+            background: white; padding: 20px; border-radius: 10px;
+            margin-bottom: 15px; border-left: 4px solid #667eea;
         }
-
-        .reason-item h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        .reason-confidence {
-            font-size: 0.85em;
-            color: #666;
-            margin-top: 10px;
-            font-style: italic;
-        }
-
-        /* 创作脚本可视化样式 */
-        .script-section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
+        .reason-item h4 { color: #667eea; margin-bottom: 10px; font-size: 1.2em; }
+        .script-section { background: white; border-radius: 15px; padding: 30px; margin-bottom: 20px; }
         .script-section h3 {
-            color: #667eea;
-            margin-bottom: 25px;
-            font-size: 1.5em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
+            color: #667eea; margin-bottom: 25px; font-size: 1.5em;
+            border-bottom: 3px solid #667eea; padding-bottom: 10px;
         }
-
-        .script-module {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-        }
-
-        .script-module h4 {
-            color: #764ba2;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .script-module { background: #f8f9fa; padding: 25px; border-radius: 15px; margin-bottom: 25px; }
+        .script-module h4 { color: #764ba2; margin-bottom: 15px; font-size: 1.3em; }
         .formula-box {
             background: linear-gradient(135deg, #fff5f7 0%, #fff 100%);
-            border-left: 5px solid #667eea;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 15px 0;
+            border-left: 5px solid #667eea; padding: 20px; border-radius: 10px; margin: 15px 0;
         }
-
-        .example-list {
-            list-style: none;
-            padding: 0;
-        }
-
+        .example-list { list-style: none; padding: 0; }
         .example-list li {
-            background: white;
-            padding: 12px 15px;
-            margin: 8px 0;
-            border-radius: 8px;
-            border-left: 4px solid #764ba2;
-            transition: all 0.3s ease;
+            background: white; padding: 12px 15px; margin: 8px 0;
+            border-radius: 8px; border-left: 4px solid #764ba2; transition: all 0.3s ease;
         }
-
-        .example-list li:hover {
-            transform: translateX(5px);
-            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
-        }
-
-        .example-list li::before {
-            content: '✨ ';
-            margin-right: 8px;
-        }
-
+        .example-list li:hover { transform: translateX(5px); box-shadow: 0 2px 10px rgba(102,126,234,0.2); }
+        .example-list li::before { content: '✨ '; margin-right: 8px; }
         .topic-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px; margin-top: 15px;
         }
-
         .topic-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #e0e0e0;
-            transition: all 0.3s ease;
+            background: white; padding: 20px; border-radius: 10px;
+            border: 2px solid #e0e0e0; transition: all 0.3s ease;
         }
-
-        .topic-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
-            transform: translateY(-3px);
-        }
-
+        .topic-card:hover { border-color: #667eea; box-shadow: 0 5px 15px rgba(102,126,234,0.2); transform: translateY(-3px); }
         .topic-number {
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 35px;
-            font-weight: 700;
-            margin-right: 10px;
+            color: white; width: 35px; height: 35px; border-radius: 50%;
+            text-align: center; line-height: 35px; font-weight: 700; margin-right: 10px;
         }
-
-        .topic-title {
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .topic-desc {
-            color: #666;
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
+        .topic-title { font-size: 1.1em; font-weight: 600; color: #333; margin-bottom: 8px; }
+        .topic-desc { color: #666; font-size: 0.95em; line-height: 1.6; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; }
         .tab {
-            padding: 12px 24px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            color: #666;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
+            padding: 12px 24px; background: transparent; border: none;
+            cursor: pointer; font-size: 1em; font-weight: 600; color: #666;
+            border-bottom: 3px solid transparent; transition: all 0.3s ease;
         }
-
-        .tab:hover {
-            color: #667eea;
-        }
-
-        .tab.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
+        .tab:hover { color: #667eea; }
+        .tab.active { color: #667eea; border-bottom-color: #667eea; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .action-buttons { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
         .error {
-            background: #fff5f5;
-            border-left: 4px solid #f56565;
-            padding: 20px;
-            border-radius: 10px;
-            color: #c53030;
-            margin-bottom: 20px;
-            display: none;
+            background: #fff5f5; border-left: 4px solid #f56565;
+            padding: 20px; border-radius: 10px; color: #c53030; margin-bottom: 20px; display: none;
         }
-
-        .error.active {
-            display: block;
-        }
-
+        .error.active { display: block; }
         .config-toggle {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px;
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
             transition: all 0.3s ease;
         }
-
-        .config-toggle:hover {
-            background: #e9ecef;
+        .config-toggle:hover { background: #e9ecef; }
+        .config-content { display: none; margin-top: 15px; }
+        .config-content.active { display: block; }
+        .fetch-status {
+            padding: 10px 15px; border-radius: 8px; margin-top: 10px;
+            font-size: 0.9em; display: none;
         }
-
-        .config-content {
-            display: none;
-            margin-top: 15px;
-        }
-
-        .config-content.active {
-            display: block;
-        }
-
-        .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            color: #0d47a1;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: white;
-            font-size: 0.9em;
-        }
-
+        .fetch-status.success { background: #d4edda; color: #155724; display: block; }
+        .fetch-status.error { background: #f8d7da; color: #721c24; display: block; }
+        .fetch-status.loading { background: #d1ecf1; color: #0c5460; display: block; }
+        footer { text-align: center; padding: 30px; color: white; font-size: 0.9em; }
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-
-            .card {
-                padding: 20px;
-            }
-
-            .tabs {
-                overflow-x: auto;
-            }
-
-            .topic-grid {
-                grid-template-columns: 1fr;
-            }
+            header h1 { font-size: 1.8em; }
+            .card { padding: 20px; }
+            .tabs { overflow-x: auto; }
+            .topic-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎬 视频分析工具</h1>
-            <p>AI驱动的视频爆款分析 - 支持多平台大模型</p>
-        </header>
+<div class="container">
+    <header>
+        <h1>📄 爆款文章分析工具</h1>
+        <p>AI驱动的爆款内容分析 - 输入文章链接，自动抓取并分析爆款要素</p>
+    </header>
 
-        <!-- API 配置 -->
-        <div class="card">
-            <div class="config-toggle" onclick="toggleConfig()">
-                <h2>⚙️ AI 模型配置</h2>
-                <span id="config-arrow">▼</span>
-            </div>
-            <div class="config-content" id="config-content">
-                <div class="info-box">
-                    💡 <strong>提示：</strong>选择你想使用的 AI 平台，输入对应的 API Key。数据仅在浏览器本地存储，不会上传到任何服务器。
-                </div>
-                <div class="warning-box">
-                    🔒 <strong>API Key 安全提示：</strong>API Key 仅保存在当前会话（sessionStorage），关闭标签页后自动清除。
-                </div>
-
-                <div class="form-group">
-                    <label>AI 平台 *</label>
-                    <select id="aiProvider" onchange="updateProviderFields()">
-                        <option value="claude">Claude (Anthropic)</option>
-                        <option value="openai">OpenAI (GPT-4/GPT-3.5)</option>
-                        <option value="deepseek">DeepSeek</option>
-                        <option value="qwen">通义千问 (阿里云)</option>
-                        <option value="zhipu">智谱 AI (GLM)</option>
-                        <option value="moonshot">月之暗面 (Kimi)</option>
-                        <option value="custom">自定义</option>
-                    </select>
-                    <small>支持的 AI 平台：</small>
-                    <div class="ai-provider-badges">
-                        <span class="ai-badge">Claude</span>
-                        <span class="ai-badge">OpenAI</span>
-                        <span class="ai-badge">DeepSeek</span>
-                        <span class="ai-badge">通义千问</span>
-                        <span class="ai-badge">智谱AI</span>
-                        <span class="ai-badge">Kimi</span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>API Key *</label>
-                    <input type="password" id="apiKey" placeholder="输入你的 API Key" />
-                    <small id="apiKeyHelp">从 <a href="https://console.anthropic.com/" target="_blank" id="apiKeyLink">Anthropic Console</a> 获取你的 API Key</small>
-                </div>
-
-                <div class="form-group">
-                    <label>Base URL</label>
-                    <input type="text" id="baseUrl" placeholder="https://api.anthropic.com" />
-                    <small>API 端点地址（使用默认值或自定义代理）</small>
-                </div>
-
-                <div class="form-group">
-                    <label>模型名称</label>
-                    <input type="text" id="model" placeholder="claude-3-5-sonnet-20241022" />
-                    <small id="modelHelp">选择具体的模型版本</small>
-                </div>
-            </div>
+    <!-- AI 配置 -->
+    <div class="card">
+        <div class="config-toggle" onclick="toggleConfig()">
+            <h2>⚙️ AI 模型配置</h2>
+            <span id="config-arrow">▼</span>
         </div>
-
-        <!-- 视频输入 -->
-        <div class="card">
-            <h2>🔗 视频链接</h2>
+        <div class="config-content" id="config-content">
+            <div class="info-box">
+                💡 <strong>提示：</strong>选择你想使用的 AI 平台，输入对应的 API Key。数据仅在当前会话中存储。
+            </div>
             <div class="form-group">
-                <label>输入视频 URL</label>
-                <input type="text" id="videoUrl" placeholder="https://www.xiaohongshu.com/..." />
-                <small>支持平台：</small>
-                <div class="platform-badges">
-                    <span class="platform-badge">YouTube</span>
-                    <span class="platform-badge">B站</span>
-                    <span class="platform-badge">抖音</span>
-                    <span class="platform-badge">快手</span>
-                    <span class="platform-badge">小红书</span>
-                    <span class="platform-badge">TikTok</span>
+                <label>AI 平台 *</label>
+                <select id="aiProvider" onchange="updateProviderFields()">
+                    <option value="claude">Claude (Anthropic)</option>
+                    <option value="openai">OpenAI (GPT-4)</option>
+                    <option value="deepseek">DeepSeek</option>
+                    <option value="qwen">通义千问 (阿里云)</option>
+                    <option value="zhipu">智谱 AI (GLM)</option>
+                    <option value="moonshot">月之暗面 (Kimi)</option>
+                    <option value="custom">自定义</option>
+                </select>
+                <div class="ai-provider-badges">
+                    <span class="ai-badge">Claude</span>
+                    <span class="ai-badge">OpenAI</span>
+                    <span class="ai-badge">DeepSeek</span>
+                    <span class="ai-badge">通义千问</span>
+                    <span class="ai-badge">智谱AI</span>
+                    <span class="ai-badge">Kimi</span>
                 </div>
             </div>
-            <button class="btn" onclick="analyzeVideo()">🚀 开始分析</button>
-        </div>
-
-        <!-- 错误提示 -->
-        <div class="error" id="error"></div>
-
-        <!-- 加载状态 -->
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>正在分析视频，请稍候...</p>
-            <p style="color: #888; font-size: 0.9em;">这可能需要30-60秒</p>
-        </div>
-
-        <!-- 分析结果 -->
-        <div class="result" id="result">
-            <div class="card">
-                <!-- 警告提示 -->
-                <div class="warning-box">
-                    <strong>⚠️ 数据准确性说明</strong>
-                    AI 只能读取网页上的文字信息，无法观看视频内容。部分信息可能需要登录才能获取，请以实际视频为准。
-                </div>
-
-                <div class="result-header" id="resultHeader">
-                    <!-- 动态填充 -->
-                </div>
-
-                <!-- 选项卡 -->
-                <div class="tabs">
-                    <button class="tab active" onclick="switchTab('analysis', this)">🔥 爆款分析</button>
-                    <button class="tab" onclick="switchTab('script', this)">📝 创作脚本</button>
-                </div>
-
-                <!-- 爆款分析内容 -->
-                <div class="tab-content active" id="tab-analysis">
-                    <div class="analysis-section">
-                        <h3>🔥 爆款原因分析</h3>
-                        <div id="analysisReasons">
-                            <!-- 动态填充 -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 创作脚本内容 -->
-                <div class="tab-content" id="tab-script">
-                    <div class="script-section">
-                        <h3>📝 同款内容创作脚本</h3>
-
-                        <!-- 标题公式 -->
-                        <div class="script-module">
-                            <h4>📌 标题公式</h4>
-                            <div id="scriptTitleFormula">
-                                <!-- 动态填充 -->
-                            </div>
-                        </div>
-
-                        <!-- 内容结构 -->
-                        <div class="script-module">
-                            <h4>🎬 内容结构</h4>
-                            <div id="scriptContentStructure">
-                                <!-- 动态填充 -->
-                            </div>
-                        </div>
-
-                        <!-- 选题方向 -->
-                        <div class="script-module">
-                            <h4>🔄 可复用选题方向</h4>
-                            <div id="scriptTopics" class="topic-grid">
-                                <!-- 动态填充 -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn" onclick="downloadReport()">📥 下载完整报告</button>
-                    <button class="btn btn-secondary" onclick="resetTool()">🔄 分析新视频</button>
-                </div>
+            <div class="form-group">
+                <label>API Key *</label>
+                <input type="password" id="apiKey" placeholder="输入你的 API Key" />
+                <small>从 <a href="https://console.anthropic.com/" target="_blank" id="apiKeyLink">Anthropic Console</a> 获取</small>
+            </div>
+            <div class="form-group">
+                <label>Base URL</label>
+                <input type="text" id="baseUrl" placeholder="https://api.anthropic.com" />
+                <small>API 端点地址（可使用默认值或自定义代理）</small>
+            </div>
+            <div class="form-group">
+                <label>模型名称</label>
+                <input type="text" id="model" placeholder="claude-3-5-sonnet-20241022" />
+                <small id="modelHelp">选择具体的模型版本</small>
             </div>
         </div>
-
-        <footer>
-            <p>🤖 支持多平台 AI 模型 | 💡 开源工具</p>
-            <p style="margin-top: 10px;">本工具不存储任何用户数据</p>
-        </footer>
     </div>
 
-    <script>
-        // 全局变量
-        let analysisData = null;
-        let currentTab = 'analysis';
+    <!-- 文章输入 -->
+    <div class="card">
+        <h2>🔗 文章链接</h2>
+        <div class="form-group">
+            <label>输入文章 URL</label>
+            <input type="text" id="articleUrl" placeholder="https://mp.weixin.qq.com/s/..." />
+            <small>支持平台：</small>
+            <div class="platform-badges">
+                <span class="platform-badge">微信公众号</span>
+                <span class="platform-badge">知乎</span>
+                <span class="platform-badge">小红书</span>
+                <span class="platform-badge">今日头条</span>
+                <span class="platform-badge">Medium</span>
+                <span class="platform-badge">博客园</span>
+                <span class="platform-badge">其他网页</span>
+            </div>
+            <div class="fetch-status" id="fetchStatus"></div>
+        </div>
+        <button class="btn" onclick="analyzeArticle()">🚀 开始分析</button>
+    </div>
 
-        // XSS 防护：HTML 转义
-        function escapeHtml(str) {
-            if (!str) return '';
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
+    <!-- 错误提示 -->
+    <div class="error" id="error"></div>
 
-        // AI 平台配置
-        const AI_PROVIDERS = {
-            claude: {
-                name: 'Claude',
-                baseUrl: 'https://api.anthropic.com',
-                defaultModel: 'claude-3-5-sonnet-20241022',
-                consoleUrl: 'https://console.anthropic.com/',
-                modelHelp: 'claude-3-5-sonnet-20241022, claude-3-opus-20240229'
-            },
-            openai: {
-                name: 'OpenAI',
-                baseUrl: 'https://api.openai.com',
-                defaultModel: 'gpt-4-turbo-preview',
-                consoleUrl: 'https://platform.openai.com/api-keys',
-                modelHelp: 'gpt-4-turbo-preview, gpt-4, gpt-3.5-turbo'
-            },
-            deepseek: {
-                name: 'DeepSeek',
-                baseUrl: 'https://api.deepseek.com',
-                defaultModel: 'deepseek-chat',
-                consoleUrl: 'https://platform.deepseek.com/',
-                modelHelp: 'deepseek-chat, deepseek-coder'
-            },
-            qwen: {
-                name: 'Qwen',
-                baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode',
-                defaultModel: 'qwen-max',
-                consoleUrl: 'https://dashscope.console.aliyun.com/',
-                modelHelp: 'qwen-max, qwen-plus, qwen-turbo'
-            },
-            zhipu: {
-                name: 'Zhipu AI',
-                baseUrl: 'https://open.bigmodel.cn/api/paas',
-                defaultModel: 'glm-4',
-                consoleUrl: 'https://open.bigmodel.cn/',
-                modelHelp: 'glm-4, glm-3-turbo'
-            },
-            moonshot: {
-                name: 'Moonshot',
-                baseUrl: 'https://api.moonshot.cn',
-                defaultModel: 'moonshot-v1-8k',
-                consoleUrl: 'https://platform.moonshot.cn/',
-                modelHelp: 'moonshot-v1-8k, moonshot-v1-32k, moonshot-v1-128k'
-            },
-            custom: {
-                name: 'Custom',
-                baseUrl: '',
-                defaultModel: '',
-                consoleUrl: '',
-                modelHelp: 'Enter your custom model name'
-            }
-        };
+    <!-- 加载状态 -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p id="loadingText">正在抓取文章内容...</p>
+        <p style="color: #888; font-size: 0.9em;">这可能需要 30-60 秒</p>
+    </div>
 
-        // 从 localStorage 加载配置
-        window.onload = function() {
-            const savedProvider = sessionStorage.getItem('aiProvider') || 'claude';
-            const savedApiKey = sessionStorage.getItem('apiKey');
-            const savedBaseUrl = sessionStorage.getItem('baseUrl');
-            const savedModel = sessionStorage.getItem('model');
+    <!-- 分析结果 -->
+    <div class="result" id="result">
+        <div class="card">
+            <div class="result-header" id="resultHeader"></div>
 
-            document.getElementById('aiProvider').value = savedProvider;
-            if (savedApiKey) document.getElementById('apiKey').value = savedApiKey;
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('analysis', this)">🔥 爆款分析</button>
+                <button class="tab" onclick="switchTab('script', this)">📝 创作脚本</button>
+            </div>
 
-            updateProviderFields();
+            <div class="tab-content active" id="tab-analysis">
+                <div class="analysis-section">
+                    <h3>🔥 爆款原因分析</h3>
+                    <div id="analysisReasons"></div>
+                </div>
+            </div>
 
-            if (savedBaseUrl) document.getElementById('baseUrl').value = savedBaseUrl;
-            if (savedModel) document.getElementById('model').value = savedModel;
-        };
+            <div class="tab-content" id="tab-script">
+                <div class="script-section">
+                    <h3>📝 同款内容创作脚本</h3>
+                    <div class="script-module">
+                        <h4>📌 标题公式</h4>
+                        <div id="scriptTitleFormula"></div>
+                    </div>
+                    <div class="script-module">
+                        <h4>🎬 内容结构</h4>
+                        <div id="scriptContentStructure"></div>
+                    </div>
+                    <div class="script-module">
+                        <h4>🔄 可复用选题方向</h4>
+                        <div id="scriptTopics" class="topic-grid"></div>
+                    </div>
+                </div>
+            </div>
 
-        // 更新平台相关字段
-        function updateProviderFields() {
-            const provider = document.getElementById('aiProvider').value;
-            const config = AI_PROVIDERS[provider];
+            <div class="action-buttons">
+                <button class="btn" onclick="downloadReport()">📥 下载完整报告</button>
+                <button class="btn btn-secondary" onclick="resetTool()">🔄 分析新文章</button>
+            </div>
+        </div>
+    </div>
 
-            document.getElementById('baseUrl').value = config.baseUrl;
-            document.getElementById('baseUrl').placeholder = config.baseUrl;
-            document.getElementById('model').value = config.defaultModel;
-            document.getElementById('model').placeholder = config.defaultModel;
-            document.getElementById('apiKeyLink').href = config.consoleUrl;
-            document.getElementById('apiKeyLink').textContent = config.name + ' Console';
-            document.getElementById('modelHelp').textContent = config.modelHelp;
-        }
+    <footer>
+        <p>🤖 支持多平台 AI 模型 | 📄 爆款文章分析工具</p>
+        <p style="margin-top: 10px;">本工具不存储任何用户数据</p>
+    </footer>
+</div>
 
-        // 切换配置面板
-        function toggleConfig() {
-            const content = document.getElementById('config-content');
-            const arrow = document.getElementById('config-arrow');
-            content.classList.toggle('active');
-            arrow.textContent = content.classList.contains('active') ? '▲' : '▼';
-        }
+<script>
+    let analysisData = null;
 
-        // 切换选项卡
-        function switchTab(tab, el) {
-            currentTab = tab;
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
 
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    const AI_PROVIDERS = {
+        claude: { name: 'Claude', baseUrl: 'https://api.anthropic.com', defaultModel: 'claude-3-5-sonnet-20241022', consoleUrl: 'https://console.anthropic.com/', modelHelp: 'claude-3-5-sonnet-20241022, claude-3-opus-20240229' },
+        openai: { name: 'OpenAI', baseUrl: 'https://api.openai.com', defaultModel: 'gpt-4-turbo-preview', consoleUrl: 'https://platform.openai.com/api-keys', modelHelp: 'gpt-4-turbo-preview, gpt-4, gpt-3.5-turbo' },
+        deepseek: { name: 'DeepSeek', baseUrl: 'https://api.deepseek.com', defaultModel: 'deepseek-chat', consoleUrl: 'https://platform.deepseek.com/', modelHelp: 'deepseek-chat, deepseek-coder' },
+        qwen: { name: 'Qwen', baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode', defaultModel: 'qwen-max', consoleUrl: 'https://dashscope.console.aliyun.com/', modelHelp: 'qwen-max, qwen-plus, qwen-turbo' },
+        zhipu: { name: 'Zhipu AI', baseUrl: 'https://open.bigmodel.cn/api/paas', defaultModel: 'glm-4', consoleUrl: 'https://open.bigmodel.cn/', modelHelp: 'glm-4, glm-3-turbo' },
+        moonshot: { name: 'Moonshot', baseUrl: 'https://api.moonshot.cn', defaultModel: 'moonshot-v1-8k', consoleUrl: 'https://platform.moonshot.cn/', modelHelp: 'moonshot-v1-8k, moonshot-v1-32k' },
+        custom: { name: 'Custom', baseUrl: '', defaultModel: '', consoleUrl: '', modelHelp: 'Enter your custom model name' }
+    };
 
-            (el || event.target).classList.add('active');
-            document.getElementById('tab-' + tab).classList.add('active');
-        }
+    window.onload = function () {
+        const savedProvider = sessionStorage.getItem('aiProvider') || 'claude';
+        const savedApiKey = sessionStorage.getItem('apiKey');
+        const savedBaseUrl = sessionStorage.getItem('baseUrl');
+        const savedModel = sessionStorage.getItem('model');
+        document.getElementById('aiProvider').value = savedProvider;
+        if (savedApiKey) document.getElementById('apiKey').value = savedApiKey;
+        updateProviderFields();
+        if (savedBaseUrl) document.getElementById('baseUrl').value = savedBaseUrl;
+        if (savedModel) document.getElementById('model').value = savedModel;
+    };
 
-        // 识别平台
-        function identifyPlatform(url) {
-            if (url.includes('youtube.com') || url.includes('youtu.be')) return 'YouTube';
-            if (url.includes('bilibili.com') || url.includes('b23.tv')) return 'Bilibili';
-            if (url.includes('douyin.com')) return 'Douyin';
-            if (url.includes('kuaishou.com')) return 'Kuaishou';
-            if (url.includes('xiaohongshu.com') || url.includes('xhslink.com')) return 'Xiaohongshu';
-            if (url.includes('tiktok.com')) return 'TikTok';
-            return 'Unknown';
-        }
+    function updateProviderFields() {
+        const provider = document.getElementById('aiProvider').value;
+        const config = AI_PROVIDERS[provider];
+        document.getElementById('baseUrl').value = config.baseUrl;
+        document.getElementById('model').value = config.defaultModel;
+        document.getElementById('apiKeyLink').href = config.consoleUrl;
+        document.getElementById('apiKeyLink').textContent = config.name + ' Console';
+        document.getElementById('modelHelp').textContent = config.modelHelp;
+    }
 
-        // 显示错误
-        function showError(message) {
-            const errorEl = document.getElementById('error');
-            errorEl.textContent = '❌ ' + message;
-            errorEl.classList.add('active');
-        }
+    function toggleConfig() {
+        const content = document.getElementById('config-content');
+        const arrow = document.getElementById('config-arrow');
+        content.classList.toggle('active');
+        arrow.textContent = content.classList.contains('active') ? '▲' : '▼';
+    }
 
-        // 隐藏错误
-        function hideError() {
-            document.getElementById('error').classList.remove('active');
-        }
+    function switchTab(tab, el) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('tab-' + tab).classList.add('active');
+    }
 
-        // 调用不同平台的 API
-        async function callAI(provider, apiKey, baseUrl, model, prompt) {
-            if (provider === 'claude') {
-                return await callClaudeAPI(apiKey, baseUrl, model, prompt);
-            } else {
-                return await callOpenAICompatibleAPI(apiKey, baseUrl, model, prompt);
-            }
-        }
+    function showError(message) {
+        const el = document.getElementById('error');
+        el.textContent = '❌ ' + message;
+        el.classList.add('active');
+    }
 
-        // 调用 Claude API
-        async function callClaudeAPI(apiKey, baseUrl, model, prompt) {
-            const response = await fetch(`${baseUrl}/v1/messages`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-api-key': apiKey,
-                    'anthropic-version': '2023-06-01'
-                },
-                body: JSON.stringify({
-                    model: model,
-                    max_tokens: 4096,
-                    messages: [{
-                        role: 'user',
-                        content: prompt
-                    }]
-                })
-            });
+    function hideError() {
+        document.getElementById('error').classList.remove('active');
+    }
 
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.error?.message || '调用 API 失败');
-            }
+    function identifyPlatform(url) {
+        if (url.includes('mp.weixin.qq.com') || url.includes('weixin.qq.com')) return '微信公众号';
+        if (url.includes('zhihu.com')) return '知乎';
+        if (url.includes('xiaohongshu.com') || url.includes('xhslink.com')) return '小红书';
+        if (url.includes('toutiao.com') || url.includes('toutiaoimg.com')) return '今日头条';
+        if (url.includes('medium.com')) return 'Medium';
+        if (url.includes('cnblogs.com')) return '博客园';
+        if (url.includes('juejin.cn')) return '掘金';
+        if (url.includes('36kr.com')) return '36氪';
+        if (url.includes('jianshu.com')) return '简书';
+        return '网页文章';
+    }
 
-            const data = await response.json();
-            return data.content[0].text;
-        }
+    async function analyzeArticle() {
+        const provider = document.getElementById('aiProvider').value;
+        const apiKey = document.getElementById('apiKey').value.trim();
+        const baseUrl = document.getElementById('baseUrl').value.trim();
+        const model = document.getElementById('model').value.trim();
+        const articleUrl = document.getElementById('articleUrl').value.trim();
 
-        // 调用 OpenAI 兼容 API
-        async function callOpenAICompatibleAPI(apiKey, baseUrl, model, prompt) {
-            const response = await fetch(`${baseUrl}/v1/chat/completions`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
-                },
-                body: JSON.stringify({
-                    model: model,
-                    messages: [{
-                        role: 'user',
-                        content: prompt
-                    }],
-                    max_tokens: 4096,
-                    temperature: 0.7
-                })
-            });
+        if (!apiKey) { showError('请输入 API Key'); toggleConfig(); return; }
+        if (!articleUrl) { showError('请输入文章链接'); return; }
 
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.error?.message || '调用 API 失败');
-            }
+        sessionStorage.setItem('aiProvider', provider);
+        sessionStorage.setItem('apiKey', apiKey);
+        sessionStorage.setItem('baseUrl', baseUrl);
+        sessionStorage.setItem('model', model);
 
-            const data = await response.json();
-            return data.choices[0].message.content;
-        }
+        hideError();
+        document.getElementById('result').classList.remove('active');
+        document.getElementById('loading').classList.add('active');
+        document.getElementById('loadingText').textContent = '正在抓取文章内容...';
 
-        // 分析视频
-        async function analyzeVideo() {
-            const provider = document.getElementById('aiProvider').value;
-            const apiKey = document.getElementById('apiKey').value.trim();
-            const baseUrl = document.getElementById('baseUrl').value.trim();
-            const model = document.getElementById('model').value.trim();
-            const videoUrl = document.getElementById('videoUrl').value.trim();
+        const platform = identifyPlatform(articleUrl);
 
-            if (!apiKey) {
-                showError('请输入 API Key');
-                toggleConfig();
-                return;
-            }
-
-            if (!videoUrl) {
-                showError('请输入视频链接');
-                return;
-            }
-
-            sessionStorage.setItem('aiProvider', provider);
-            sessionStorage.setItem('apiKey', apiKey);
-            sessionStorage.setItem('baseUrl', baseUrl);
-            sessionStorage.setItem('model', model);
-
-            hideError();
-            document.getElementById('result').classList.remove('active');
-            document.getElementById('loading').classList.add('active');
-
-            const platform = identifyPlatform(videoUrl);
-
+        try {
+            // Step 1: 抓取文章内容
+            let articleContent = '';
             try {
-                const prompt = `你是一个专业的短视频内容分析师。请用中文分析这个${platform}视频的爆款原因，并生成详细的创作脚本。
+                const fetchResp = await fetch('/api/fetch-article', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: articleUrl })
+                });
+                const fetchData = await fetchResp.json();
+                if (fetchResp.ok && fetchData.content) {
+                    articleContent = fetchData.content;
+                    document.getElementById('loadingText').textContent = `已抓取 ${fetchData.length} 字，正在 AI 分析...`;
+                } else {
+                    document.getElementById('loadingText').textContent = '抓取失败，将基于链接进行分析...';
+                }
+            } catch (e) {
+                document.getElementById('loadingText').textContent = '抓取失败，将基于链接进行分析...';
+            }
 
-视频链接：${videoUrl}
+            // Step 2: AI 分析
+            const contentSection = articleContent
+                ? `\n\n以下是从该链接抓取到的文章内容：\n---\n${articleContent}\n---`
+                : '\n\n（注意：无法直接抓取文章内容，请基于链接信息和平台特性进行分析）';
 
-重要说明：
-1. 你只能读取网页上的文字信息（标题、简介、评论等），无法观看视频内容。
-2. 对于每条信息，你必须标明其可靠性：
-   - "confirmed": 网页上直接可见的信息
-   - "inferred": 根据已有数据推测的信息
-   - "unavailable": 无法获取的信息
-3. **所有分析内容必须用中文撰写，不要使用英文**
+            const prompt = `你是一个专业的爆款内容分析师。请用中文深度分析这篇${platform}文章的爆款原因，并生成可复用的创作脚本建议。
 
-请按以下步骤操作：
-1. 获取视频基本信息（标题、作者、发布时间）
-2. 分析爆款原因（从内容、制作、传播、平台特性4个维度分析最本质的3个原因，按重要性排序）
-3. 生成同款内容创作建议
+文章链接：${articleUrl}
+平台：${platform}
+${contentSection}
 
-请严格按照以下 JSON 格式返回结果，**所有中文字段必须用中文填写**：
+分析要求：
+1. 从标题、内容结构、情绪触发、传播机制、平台算法5个维度分析爆款原因，选取最核心的3个
+2. 提炼可复用的标题公式和内容结构
+3. 给出5个同类选题方向
+4. 所有内容必须用中文
+
+请严格按照以下 JSON 格式返回：
 {
-  "dataReliability": "请注意：AI 只能读取网页文字，无法观看视频内容。部分信息可能不准确。",
-  "platform": "平台名称（如：小红书、B站、抖音等）",
-  "title": "视频完整标题（必须是中文）",
-  "titleConfidence": "confirmed",
-  "author": "作者名称或账号（必须是中文）",
-  "authorConfidence": "confirmed",
-  "publishDate": "发布日期（格式：2026年1月14日）",
-  "publishDateConfidence": "confirmed",
+  "platform": "${platform}",
+  "title": "文章完整标题",
+  "author": "作者名称（如可获取）",
+  "publishDate": "发布日期（如可获取）",
+  "summary": "文章核心内容一句话概括（30字以内）",
   "reasons": [
     {
-      "title": "第一个爆款原因的标题（10-15字，必须用中文）",
-      "description": "详细说明这个原因的具体内容，为什么这个因素让视频火了。至少写100字，必须用中文，不要使用英文单词。",
-      "confidence": "基于网页可见信息"
+      "title": "爆款原因标题（10-15字）",
+      "description": "详细分析这个原因，结合文章具体内容说明，至少100字"
     },
     {
-      "title": "第二个爆款原因的标题（10-15字，必须用中文）",
-      "description": "详细说明这个原因的具体内容，为什么这个因素让视频火了。至少写100字，必须用中文，不要使用英文单词。",
-      "confidence": "基于网页可见信息"
+      "title": "爆款原因标题（10-15字）",
+      "description": "详细分析这个原因，结合文章具体内容说明，至少100字"
     },
     {
-      "title": "第三个爆款原因的标题（10-15字，必须用中文）",
-      "description": "详细说明这个原因的具体内容，为什么这个因素让视频火了。至少写100字，必须用中文，不要使用英文单词。",
-      "confidence": "基于网页可见信息"
+      "title": "爆款原因标题（10-15字）",
+      "description": "详细分析这个原因，结合文章具体内容说明，至少100字"
     }
   ],
   "script": {
-    "titleFormula": "分析原视频标题的结构，提炼出可复用的标题公式。用中文详细说明，至少50字。",
+    "titleFormula": "提炼原文标题的结构公式，说明为什么这种标题有吸引力，至少50字",
     "titleExamples": [
-      "示例标题1（必须是完整的中文标题）",
-      "示例标题2（必须是完整的中文标题）",
-      "示例标题3（必须是完整的中文标题）",
-      "示例标题4（必须是完整的中文标题）",
-      "示例标题5（必须是完整的中文标题）"
+      "基于公式的示例标题1（完整可用）",
+      "基于公式的示例标题2（完整可用）",
+      "基于公式的示例标题3（完整可用）",
+      "基于公式的示例标题4（完整可用）",
+      "基于公式的示例标题5（完整可用）"
     ],
-    "contentStructure": "详细描述同款视频的内容结构，包括：开头如何吸引人、中间讲什么、结尾如何引导互动。至少写200字，必须用中文。",
+    "contentStructure": "详细描述同款文章的内容结构：开头如何抓住注意力、中间怎么展开论述、结尾如何引发互动/传播。至少200字",
     "topics": [
-      {"title": "选题1的完整标题（必须是中文）", "description": "为什么这个选题能火的原因分析，至少30字"},
-      {"title": "选题2的完整标题（必须是中文）", "description": "为什么这个选题能火的原因分析，至少30字"},
-      {"title": "选题3的完整标题（必须是中文）", "description": "为什么这个选题能火的原因分析，至少30字"},
-      {"title": "选题4的完整标题（必须是中文）", "description": "为什么这个选题能火的原因分析，至少30字"},
-      {"title": "选题5的完整标题（必须是中文）", "description": "为什么这个选题能火的原因分析，至少30字"}
+      {"title": "选题1完整标题", "description": "为什么这个选题能火，至少30字"},
+      {"title": "选题2完整标题", "description": "为什么这个选题能火，至少30字"},
+      {"title": "选题3完整标题", "description": "为什么这个选题能火，至少30字"},
+      {"title": "选题4完整标题", "description": "为什么这个选题能火，至少30字"},
+      {"title": "选题5完整标题", "description": "为什么这个选题能火，至少30字"}
     ]
   }
-}
+}`;
 
-重要提醒：
-- 所有的"title"、"description"、"titleFormula"、"contentStructure"等字段的内容都必须是中文
-- 不要在中文内容中夹杂英文单词（除非是专有名词如YouTube、TikTok）
-- 标题示例必须是完整的、可以直接使用的标题，不要只写模板
-- 每个字段都要认真填写，不要敷衍`;
+            const aiResp = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ provider, apiKey, baseUrl, model, prompt })
+            });
 
-                const content = await callAI(provider, apiKey, baseUrl, model, prompt);
+            const aiData = await aiResp.json();
+            if (!aiResp.ok) throw new Error(aiData.error || 'AI 分析失败');
 
-                let jsonMatch = content.match(/\{[\s\S]*\}/);
-                if (jsonMatch) {
-                    try {
-                        analysisData = JSON.parse(jsonMatch[0]);
-                    } catch (e) {
-                        analysisData = parseTextResponse(content, platform, videoUrl);
-                    }
-                } else {
-                    analysisData = parseTextResponse(content, platform, videoUrl);
+            const jsonMatch = aiData.content.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                try {
+                    analysisData = JSON.parse(jsonMatch[0]);
+                } catch (e) {
+                    analysisData = { platform, title: '分析结果', author: '未知', publishDate: '', summary: '', reasons: [{ title: '分析内容', description: aiData.content }], script: { titleFormula: '', titleExamples: [], contentStructure: '', topics: [] } };
                 }
-
-                document.getElementById('loading').classList.remove('active');
-                displayResults();
-
-            } catch (error) {
-                document.getElementById('loading').classList.remove('active');
-                showError('分析失败：' + error.message);
-                console.error('Error:', error);
-            }
-        }
-
-        // 解析文本响应
-        function parseTextResponse(content, platform, url) {
-            return {
-                dataReliability: 'AI 只能读取网页文字，无法观看视频内容',
-                platform: platform,
-                title: '视频分析',
-                titleConfidence: 'unavailable',
-                author: '未知',
-                authorConfidence: 'unavailable',
-                publishDate: new Date().toLocaleDateString('zh-CN'),
-                publishDateConfidence: 'unavailable',
-                reasons: [
-                    {
-                        title: '分析结果',
-                        description: content,
-                        confidence: '基于 AI 推测'
-                    }
-                ],
-                script: {
-                    titleFormula: '请查看完整分析',
-                    titleExamples: [],
-                    contentStructure: '',
-                    topics: []
-                },
-                rawContent: content
-            };
-        }
-
-        // 获取可信度标签
-        function getConfidenceBadge(confidence) {
-            if (!confidence) return '';
-
-            if (confidence === 'confirmed' || confidence.includes('网页') || confidence.includes('可见')) {
-                return '<span class="confidence-badge confidence-confirmed">✓ 已确认</span>';
-            } else if (confidence === 'inferred' || confidence.includes('推测') || confidence.includes('基于')) {
-                return '<span class="confidence-badge confidence-inferred">? 推测</span>';
-            } else if (confidence === 'unavailable') {
-                return '<span class="confidence-badge confidence-unavailable">✗ 不可用</span>';
-            }
-            return '';
-        }
-
-        // 显示结果
-        function displayResults() {
-            // 填充头部
-            const headerHTML = `
-                <h3>${escapeHtml(analysisData.title)} ${getConfidenceBadge(analysisData.titleConfidence)}</h3>
-                <div class="result-meta">
-                    <div class="result-meta-item">
-                        <span>📱</span>
-                        <span>${escapeHtml(analysisData.platform)}</span>
-                    </div>
-                    <div class="result-meta-item">
-                        <span>👤</span>
-                        <span>${escapeHtml(analysisData.author)} ${getConfidenceBadge(analysisData.authorConfidence)}</span>
-                    </div>
-                    <div class="result-meta-item">
-                        <span>📅</span>
-                        <span>${escapeHtml(analysisData.publishDate)} ${getConfidenceBadge(analysisData.publishDateConfidence)}</span>
-                    </div>
-                </div>
-            `;
-            document.getElementById('resultHeader').innerHTML = headerHTML;
-
-            // 填充分析原因
-            const reasonsHTML = analysisData.reasons.map((reason, index) => `
-                <div class="reason-item">
-                    <h4>${index + 1}. ${escapeHtml(reason.title)}</h4>
-                    <p>${escapeHtml(reason.description)}</p>
-                    ${reason.confidence ? `<p class="reason-confidence">📌 数据来源：${escapeHtml(reason.confidence)}</p>` : ''}
-                </div>
-            `).join('');
-            document.getElementById('analysisReasons').innerHTML = reasonsHTML;
-
-            // 填充创作脚本 - 标题公式
-            const titleFormulaHTML = `
-                <div class="formula-box">
-                    <p>${escapeHtml(analysisData.script.titleFormula)}</p>
-                    ${analysisData.script.titleExamples && analysisData.script.titleExamples.length > 0 ? `
-                        <h5 style="margin-top: 20px; margin-bottom: 10px; color: #764ba2;">示例标题：</h5>
-                        <ul class="example-list">
-                            ${analysisData.script.titleExamples.map(ex => `<li>${escapeHtml(ex)}</li>`).join('')}
-                        </ul>
-                    ` : ''}
-                </div>
-            `;
-            document.getElementById('scriptTitleFormula').innerHTML = titleFormulaHTML;
-
-            // 填充创作脚本 - 内容结构
-            const contentStructureHTML = `
-                <div class="formula-box">
-                    <p style="white-space: pre-wrap;">${escapeHtml(analysisData.script.contentStructure)}</p>
-                </div>
-            `;
-            document.getElementById('scriptContentStructure').innerHTML = contentStructureHTML;
-
-            // 填充创作脚本 - 选题方向
-            if (analysisData.script.topics && analysisData.script.topics.length > 0) {
-                const topicsHTML = analysisData.script.topics.map((topic, index) => {
-                    const topicTitle = typeof topic === 'string' ? topic : topic.title;
-                    const topicDesc = typeof topic === 'string' ? '' : topic.description;
-                    return `
-                        <div class="topic-card">
-                            <div>
-                                <span class="topic-number">${index + 1}</span>
-                                <span class="topic-title">${escapeHtml(topicTitle)}</span>
-                            </div>
-                            ${topicDesc ? `<p class="topic-desc" style="margin-top: 10px; margin-left: 45px;">${escapeHtml(topicDesc)}</p>` : ''}
-                        </div>
-                    `;
-                }).join('');
-                document.getElementById('scriptTopics').innerHTML = topicsHTML;
+            } else {
+                analysisData = { platform, title: '分析结果', author: '未知', publishDate: '', summary: '', reasons: [{ title: '分析内容', description: aiData.content }], script: { titleFormula: '', titleExamples: [], contentStructure: '', topics: [] } };
             }
 
-            // 显示结果
-            document.getElementById('result').classList.add('active');
+            document.getElementById('loading').classList.remove('active');
+            displayResults();
+
+        } catch (error) {
+            document.getElementById('loading').classList.remove('active');
+            showError('分析失败：' + error.message);
+        }
+    }
+
+    function displayResults() {
+        document.getElementById('resultHeader').innerHTML = `
+            <h3>${escapeHtml(analysisData.title)}</h3>
+            ${analysisData.summary ? `<p style="opacity:0.9;margin-top:8px;">${escapeHtml(analysisData.summary)}</p>` : ''}
+            <div class="result-meta">
+                <div class="result-meta-item"><span>📱</span><span>${escapeHtml(analysisData.platform)}</span></div>
+                <div class="result-meta-item"><span>👤</span><span>${escapeHtml(analysisData.author || '未知')}</span></div>
+                ${analysisData.publishDate ? `<div class="result-meta-item"><span>📅</span><span>${escapeHtml(analysisData.publishDate)}</span></div>` : ''}
+            </div>
+        `;
+
+        document.getElementById('analysisReasons').innerHTML = (analysisData.reasons || []).map((r, i) => `
+            <div class="reason-item">
+                <h4>${i + 1}. ${escapeHtml(r.title)}</h4>
+                <p>${escapeHtml(r.description)}</p>
+            </div>
+        `).join('');
+
+        document.getElementById('scriptTitleFormula').innerHTML = `
+            <div class="formula-box">
+                <p>${escapeHtml(analysisData.script.titleFormula)}</p>
+                ${analysisData.script.titleExamples && analysisData.script.titleExamples.length > 0 ? `
+                    <h5 style="margin-top:20px;margin-bottom:10px;color:#764ba2;">示例标题：</h5>
+                    <ul class="example-list">
+                        ${analysisData.script.titleExamples.map(ex => `<li>${escapeHtml(ex)}</li>`).join('')}
+                    </ul>` : ''}
+            </div>`;
+
+        document.getElementById('scriptContentStructure').innerHTML = `
+            <div class="formula-box">
+                <p style="white-space:pre-wrap;">${escapeHtml(analysisData.script.contentStructure)}</p>
+            </div>`;
+
+        if (analysisData.script.topics && analysisData.script.topics.length > 0) {
+            document.getElementById('scriptTopics').innerHTML = analysisData.script.topics.map((topic, i) => {
+                const t = typeof topic === 'string' ? topic : topic.title;
+                const d = typeof topic === 'string' ? '' : topic.description;
+                return `<div class="topic-card">
+                    <div><span class="topic-number">${i + 1}</span><span class="topic-title">${escapeHtml(t)}</span></div>
+                    ${d ? `<p class="topic-desc" style="margin-top:10px;margin-left:45px;">${escapeHtml(d)}</p>` : ''}
+                </div>`;
+            }).join('');
         }
 
-        // 下载完整报告
-        function downloadReport() {
-            if (!analysisData) return;
+        document.getElementById('result').classList.add('active');
+    }
 
-            const html = generateFullReportHTML(analysisData);
-            downloadHTML(html, `video_analysis_${Date.now()}.html`);
-        }
+    function downloadReport() {
+        if (!analysisData) return;
+        const html = `<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>爆款文章分析报告 - ${escapeHtml(analysisData.title)}</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);padding:20px;line-height:1.8}
+.c{max-width:1000px;margin:0 auto;background:white;border-radius:20px;padding:40px;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+h1,h2{color:#667eea}.s{background:#f8f9fa;padding:25px;border-radius:15px;margin:20px 0}
+.r,.t{background:white;padding:20px;border-radius:10px;margin:15px 0;border-left:4px solid #667eea}
+footer{text-align:center;margin-top:40px;color:#888}
+</style></head><body><div class="c">
+<h1>📄 爆款文章分析报告</h1>
+<h2>${escapeHtml(analysisData.title)}</h2>
+<p><strong>平台：</strong>${escapeHtml(analysisData.platform)} | <strong>作者：</strong>${escapeHtml(analysisData.author || '未知')} | <strong>发布时间：</strong>${escapeHtml(analysisData.publishDate || '未知')}</p>
+${analysisData.summary ? `<p><strong>摘要：</strong>${escapeHtml(analysisData.summary)}</p>` : ''}
+<div class="s"><h2>🔥 爆款原因分析</h2>
+${(analysisData.reasons || []).map((r, i) => `<div class="r"><h3>${i+1}. ${escapeHtml(r.title)}</h3><p>${escapeHtml(r.description)}</p></div>`).join('')}
+</div>
+<div class="s"><h2>📝 创作脚本</h2>
+<h3>📌 标题公式</h3><p>${escapeHtml(analysisData.script.titleFormula)}</p>
+<h4>示例标题：</h4>${(analysisData.script.titleExamples || []).map(ex => `<p>✨ ${escapeHtml(ex)}</p>`).join('')}
+<h3 style="margin-top:30px">🎬 内容结构</h3><p style="white-space:pre-wrap">${escapeHtml(analysisData.script.contentStructure)}</p>
+<h3 style="margin-top:30px">🔄 可复用选题方向</h3>
+${(analysisData.script.topics || []).map((topic, i) => {
+    const t = typeof topic === 'string' ? topic : topic.title;
+    const d = typeof topic === 'string' ? '' : topic.description;
+    return `<div class="t"><h4>${i+1}. ${escapeHtml(t)}</h4>${d ? `<p>${escapeHtml(d)}</p>` : ''}</div>`;
+}).join('')}
+</div>
+<footer><p>生成时间：${new Date().toLocaleString('zh-CN')}</p></footer>
+</div></body></html>`;
+        const blob = new Blob([html], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `article_analysis_${Date.now()}.html`;
+        a.click();
+    }
 
-        // 生成完整报告 HTML
-        function generateFullReportHTML(data) {
-            return `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>视频分析报告 - ${data.title}</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            line-height: 1.8;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-        h1, h2 { color: #667eea; }
-        .warning {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            color: #856404;
-        }
-        .section {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 20px 0;
-        }
-        .reason, .topic {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            border-left: 4px solid #667eea;
-        }
-        .confidence {
-            font-size: 0.85em;
-            color: #666;
-            font-style: italic;
-            margin-top: 10px;
-        }
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-        .confirmed { background: #d4edda; color: #155724; }
-        .inferred { background: #fff3cd; color: #856404; }
-        .unavailable { background: #f8d7da; color: #721c24; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>📊 视频分析报告</h1>
-
-        <div class="warning">
-            <strong>⚠️ 数据准确性说明</strong><br>
-            ${data.dataReliability || 'AI 只能读取网页文字，无法观看视频内容。部分信息可能不准确。'}
-        </div>
-
-        <h2>${data.title}</h2>
-        <p><strong>平台：</strong> ${data.platform} | <strong>作者：</strong> ${data.author} | <strong>发布时间：</strong> ${data.publishDate}</p>
-
-        <div class="section">
-            <h2>🔥 爆款原因分析</h2>
-            ${data.reasons.map((r, i) => `
-                <div class="reason">
-                    <h3>${i + 1}. ${r.title}</h3>
-                    <p>${r.description}</p>
-                    ${r.confidence ? `<p class="confidence">📌 数据来源：${r.confidence}</p>` : ''}
-                </div>
-            `).join('')}
-        </div>
-
-        <div class="section">
-            <h2>📝 创作脚本</h2>
-
-            <h3>📌 标题公式</h3>
-            <p>${data.script.titleFormula}</p>
-            <h4>示例标题：</h4>
-            ${(data.script.titleExamples || []).map(ex => `<p>✨ ${ex}</p>`).join('')}
-
-            <h3 style="margin-top: 30px;">🎬 内容结构</h3>
-            <p style="white-space: pre-wrap;">${data.script.contentStructure}</p>
-
-            <h3 style="margin-top: 30px;">🔄 可复用选题方向</h3>
-            ${(data.script.topics || []).map((topic, i) => {
-                const title = typeof topic === 'string' ? topic : topic.title;
-                const desc = typeof topic === 'string' ? '' : topic.description;
-                return `
-                    <div class="topic">
-                        <h4>${i + 1}. ${title}</h4>
-                        ${desc ? `<p>${desc}</p>` : ''}
-                    </div>
-                `;
-            }).join('')}
-        </div>
-
-        <footer style="text-align: center; margin-top: 40px; color: #888;">
-            <p>生成时间：${new Date().toLocaleString('zh-CN')}</p>
-            <p>由 AI 驱动</p>
-        </footer>
-    </div>
-</body>
-</html>`;
-        }
-
-        // 下载 HTML 文件
-        function downloadHTML(html, filename) {
-            const blob = new Blob([html], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        // 重置工具
-        function resetTool() {
-            document.getElementById('videoUrl').value = '';
-            document.getElementById('result').classList.remove('active');
-            analysisData = null;
-
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelector('.tab').classList.add('active');
-            document.getElementById('tab-analysis').classList.add('active');
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
+    function resetTool() {
+        document.getElementById('articleUrl').value = '';
+        document.getElementById('result').classList.remove('active');
+        analysisData = null;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelector('.tab').classList.add('active');
+        document.getElementById('tab-analysis').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
 </body>
 </html>
